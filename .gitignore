@@ -1,3 +1,6 @@
+# Ignore the hg19 file as it's too big (could use git lfs if was official project)
+hg19_annotations.gtf
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
