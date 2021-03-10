@@ -1,7 +1,6 @@
 class SeqNode(object):
 
-    def __init__(self, name, seq):
-        self.name = name
+    def __init__(self, seq):
         self.seq = seq
         self.cnt = 1
 
