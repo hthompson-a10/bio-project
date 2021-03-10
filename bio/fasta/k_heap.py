@@ -21,7 +21,7 @@ class KHeap(object):
         node_list[idx_2] = temp_node
 
     def build_heap(self, node_list, size, child_cnt):
-        i = math.floor((size-1)/child_cnt)
+        i = math.floor((size-2)/child_cnt)
         while i >= 0:
             self.max_heapify(node_list, size, i, child_cnt)
             i -= 1
