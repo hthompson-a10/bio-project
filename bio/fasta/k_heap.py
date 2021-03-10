@@ -7,42 +7,45 @@ class KHeap(object):
         This is a partial implementation of the K-ary Heap which is the generalized version of the
         binary heap (k=2).
 
+        This was only partially implemented as anything more would have been out-of-scope of this assignment.
+        In a normal codebase, the author would have implemented the entirety of the class.
+
         For readability purposes: Let k be aliased to child_cnt
 
         Credit to https://www.geeksforgeeks.org/k-ary-heap/ for the base implementation in C++
     """
 
-    def _swap(node_list, idx_1, idx_2):
+    def _swap(self, node_list, idx_1, idx_2):
         temp_node = copy.deepcopy(node_list[idx_1])
         node_list[idx_1] = copy.deepcopy(node_list[idx_2])
         node_list[idx_2] = temp_node
 
-    def build_heap(node_list, size, child_cnt):
+    def build_heap(self, node_list, size, child_cnt):
         i = math.floor((size-1)/child_cnt)
         while i >= 0:
             self.max_heapify(node_list, size, i, child_cnt)
             i -= 1
 
-    def max_heapify(node_list, size, idx, child_cnt):
-        child_pos_list = []
+    def max_heapify(self, node_list, size, idx, child_cnt):
         while True:
+            child_idx_list = []
             # Find all the children of the current node
             # Children are at (child_cnt*idx)+1, ..., (child_cnt*idx)+child_cnt
             # Iterating from 1 -> child_cnt+1 makes calculations easier
             for i in range(1, child_cnt+1):
-                potential_child_pos = child_cnt*idx + i
-                if potential_child_pos < size:
-                    child_pos_list.append(potential_child_pos)
+                potential_child_idx = child_cnt*idx + i
+                if potential_child_idx < size:
+                    child_idx_list.append(potential_child_idx)
                 else:
-                    child_pos_list.append(-1) # Use -1 to signify out-of-bounds child pos
+                    child_idx_list.append(-1) # Use -1 to signify out-of-bounds child pos
 
             max_child = -1
             max_child_idx = -1
             # Find the largest child node
-            for i in range(0, child_cnt):
-                if child_pos_list[i] != -1 and node_list[child_pos_list[i]] > max_child:
-                    max_child_idx = child_pos_list[i]
-                    max_child = node_list[child_pos_list[i]]
+            for child_idx in child_idx_list:
+                if child_idx != -1 and node_list[child_idx] > max_child:
+                    max_child_idx = child_idx
+                    max_child = node_list[child_idx]
 
             # If this is true then we are on a leafe node
             if max_child == -1:
@@ -54,7 +57,7 @@ class KHeap(object):
             
             idx = max_child_idx
 
-    def extract_max(node_list, size, child_cnt):
+    def extract_max(self, node_list, size, child_cnt):
         max_node = node_list[0]
         node_list[0] = node_list[size-1]
         del node_list[size-1]
