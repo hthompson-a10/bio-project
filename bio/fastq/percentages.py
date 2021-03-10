@@ -26,9 +26,9 @@ def collect_percents(fastq_iter):
                 if len(seq) > 30:
                     seq_over_30 += 1
                 total_seq_cnt += 1
-        
         percents[fastq_file] = (seq_over_30 / total_seq_cnt) * 100
     return percents
+
 
 def build_output_message(root_dir, percents, percision):
     subdir_msg_dict = {}
@@ -49,9 +49,10 @@ def build_output_message(root_dir, percents, percision):
 
     return output_msg
 
+
 def main():
     root_dir = sys.argv[1]
-    percision = int(sys.argv[2]) if len(sys.argv) > 1 else 0
+    percision = int(sys.argv[2]) if len(sys.argv) > 2 else 0
     fastq_iter = glob.iglob(os.path.join(root_dir, '**/*.fastq'),
                             recursive=True)
     percentages = collect_percents(fastq_iter)
