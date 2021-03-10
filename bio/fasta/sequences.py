@@ -31,12 +31,9 @@ def build_output_message(seq_list):
     k_heap = heap.KHeap()
     k_heap.build_heap(seq_list, len(seq_list), 9)
 
-    # Use Timsort to sort the 10 most frequent 
-    most_freq_list = seq_list[0:10]
-    most_freq_list.sort(reverse=True)
-
     output_msg = ""
-    for seq_node in most_freq_list:
+    for i in range(0, 10):
+        seq_node = k_heap.extract_max(seq_list, len(seq_list), 9)
         output_msg += f"Sequence: {seq_node.seq}"
         output_msg += f"Sequence Frequency Count: {seq_node.cnt}\n\n"
 
