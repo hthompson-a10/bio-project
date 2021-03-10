@@ -47,5 +47,6 @@ def main():
     output_msg = build_output_message(seq_list)
     print(output_msg)
 
+
 if __name__ == "__main__":
     main()
