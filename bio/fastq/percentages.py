@@ -11,10 +11,6 @@ def sequence_gen(lines):
         idx += 4
 
 
-def truncate(value, decimal_pos):
-    return value - value % (10 ** decimal_pos)
-
-
 def collect_percents(fastq_iter):
     percents = {}
     for fastq_file in fastq_iter:
