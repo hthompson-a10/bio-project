@@ -56,13 +56,3 @@ class KHeap(object):
                 self._swap(node_list, idx, max_child_idx)
             
             idx = max_child_idx
-
-    def extract_max(self, node_list, size, child_cnt):
-        max_node = node_list[0]
-        node_list[0] = node_list[size-1]
-        del node_list[size-1]
-        size -= 1
-
-        self.max_heapify(node_list, size, 0, child_cnt)
-
-        return max_node
