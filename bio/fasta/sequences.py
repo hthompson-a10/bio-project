@@ -1,6 +1,6 @@
 import k_heap as heap
 import node
-
+import sys
 
 def convert_to_list(seq_dict):
     seq_list = []
@@ -29,7 +29,12 @@ def main():
     seq_list = convert_to_list(seq_dict)
 
     k_heap = heap.KHeap()
-    k_heap.build_heap(seq_list)
+    k_heap.build_heap(seq_list, len(seq_list), 9)
+    for i in range(0, 9):
+        top_node = k_heap.extract_max(seq_list, len(seq_list), 9)
+        print(top_node.name)
+        print(top_node.seq)
+        print(top_node.cnt)
 
 if __name__ == "__main__":
     main()
