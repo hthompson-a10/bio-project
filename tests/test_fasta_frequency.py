@@ -46,6 +46,9 @@ class TestSeqNode(unittest.TestCase):
         self.assertTrue(result)
 
 
+class TestKHeap(unittest.TestCase):
+    pass
+
+
 class TestFastaFrequency(unittest.TestCase):
-    
-    def 
+    pass
