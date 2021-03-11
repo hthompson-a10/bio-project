@@ -1,5 +1,4 @@
 import glob
-import math
 import os
 import sys
 
@@ -31,7 +30,7 @@ def build_output_message(root_dir, percents, percision):
     for k, v in percents.items():
         filename = k.split('/')[-1]
         subdir = k.replace(root_dir, '').replace(filename, '')
-        msg = f"{filename}: {v:.{percision}f}% of sequences have greater than 30 nucleotides"
+        msg = f"{filename}: {v:.{percision}f}% of sequences are greater than 30 nucleotides long"
         if not subdir_msg_dict.get(subdir):
             subdir_msg_dict[subdir] = []
         subdir_msg_dict[subdir].append(msg)
