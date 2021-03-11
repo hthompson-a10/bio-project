@@ -88,7 +88,18 @@ class AVLGeneTree(object):
         return new_parent
 
     def search(self, node, coordinate):
+        """
+        This searches across the AVL tree and annotation nodes to find the annotation
+        connected to the provided coordinate.
+        """
         if node is None:
             raise SearchNodeCannotBeNoneError()
         
-    
+        if coordinate < node.start:
+            return search(node.left_node, coordinate)
+
+        if coordinate >= node.start:
+            if coordinate <= node.end:
+                return node
+            else:
+                return search(node.right_node, coordinate)

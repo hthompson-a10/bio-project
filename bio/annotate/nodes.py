@@ -7,10 +7,11 @@ class AnnotationNode(object):
         self.annotation = annotation
 
 
-class GeneBlock(object):
+class GeneBlockNode(object):
     
     def __init__(self, start):
         self.start = start
+        self.end = end
         self.annotations = []
     
     def binary_search(self, left, right, coordinate):
