@@ -6,11 +6,11 @@ class SearchNodeCannotBeNoneError(Exception):
 
 class GeneTreeNode(nodes.GeneBlock):
 
-    def __init__(self, start):
+    def __init__(self, start, gene_name):
         self.left_node = None
         self.right_node = None
         self.height = 1
-        super().__init__(start)
+        super().__init__(start, gene_name)
 
 
 class AVLGeneTree(object):
@@ -28,20 +28,20 @@ class AVLGeneTree(object):
         left_height, right_height = self._get_child_heights(node)
         return 1 + max(left_height, right_height)
 
-    def insert(self, root, start):
+    def insert(self, root, node):
         if not root:
-            return GeneTreeNode(start)
-        elif start < root.start:
-            root.left_node = self.insert(root.left_node, start)
+            return node
+        elif node.start < root.start:
+            root.left_node = self.insert(root.left_node, node)
         else:
-            root.right_node = self.insert(root.right_node, start)
+            root.right_node = self.insert(root.right_node, node)
 
         root.height = self._calc_height(root)
         balance_factor = self._calc_balance(root)
 
         # Check if left side causing the tree to be unbalaced
         if balance_factor > 1:
-            if start < root.left_node.start:
+            if node.start < root.left_node.start:
                 # If node was inserted as a left leaf then rotate right to compensate
                 return self.rotate_right(root)
             else:
@@ -53,7 +53,7 @@ class AVLGeneTree(object):
 
         # Check if right side causing the tree to be unbalaced
         if balance_factor < -1:
-            if start > root.right_node.start:
+            if node.start > root.right_node.start:
                 # If node was inserted as a right leaf then rotate left to compensate
                 return self.rotate_left(root)
             else:
@@ -103,3 +103,10 @@ class AVLGeneTree(object):
                 return node
             else:
                 return search(node.right_node, coordinate)
+
+    def pre_order(self, root):
+        if not root:
+            return
+        print("{0} ".format(root.start), end="")
+        self.preOrder(root.left)
+        self.preOrder(root.right)

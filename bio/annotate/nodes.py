@@ -3,15 +3,15 @@ class AnnotationNode(object):
     def __init__(self, start, end, gene_name, annotation=None):
         self.start = start
         self.end = end
-        self.gene_name = gene_name
         self.annotation = annotation
 
 
-class GeneBlockNode(object):
+class GeneBlock(object):
     
-    def __init__(self, start):
+    def __init__(self, start, gene_name):
         self.start = start
         self.end = end
+        self.gene_name = gene_name
         self.annotations = []
     
     def binary_search(self, left, right, coordinate):
