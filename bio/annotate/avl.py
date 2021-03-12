@@ -105,8 +105,8 @@ class AVLGeneTree(object):
         connected to the provided coordinate.
         """
         if node is None:
-            import pdb; pdb.set_trace()
-            raise TreeDoesNotContainNodeError()
+            return GeneTreeNode(coordinate, '"UNKNOWN"')
+            #raise TreeDoesNotContainNodeError()
         
         if coordinate < node.start:
             return self.search(node.left_node, coordinate)

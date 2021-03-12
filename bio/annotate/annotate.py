@@ -46,9 +46,10 @@ def search_coordinate(tab_filepath, forest_map):
             root_node = forest_map.get(parsed_line[0])
             if root_node:
                 coordinate = int(parsed_line[1][:-1])
-                import pdb; pdb.set_trace()
                 gene_block = avl.AVLGeneTree().search(root_node, coordinate)
-                lines[i] = lines[i] + f"\t{gene_block.gene_name}"
+                lines[i] = lines[i].replace('\n', '') + f" \t{gene_block.gene_name}\n"
+            else:
+                lines[i] = lines[i].replace('\n', '') + ' \t\t"UNKNOWN"\n'
         f.seek(0)
         f.writelines(lines)
 
