@@ -38,13 +38,25 @@ def build_forest_map(gtf_filepath):
             gene_block.annotations.append(anno_node)
     return forest_map
 
-def search_coordinate(tab_filepath):
-    pass
+def search_coordinate(tab_filepath, forest_map):
+    with open(tab_filepath, 'r+') as f:
+        lines = f.readlines()
+        for i in range(0, len(lines)):
+            parsed_line = lines[i].split('\t')
+            root_node = forest_map.get(parsed_line[0])
+            if root_node:
+                coordinate = int(parsed_line[1][:-1])
+                import pdb; pdb.set_trace()
+                gene_block = avl.AVLGeneTree().search(root_node, coordinate)
+                lines[i] = lines[i] + f"\t{gene_block.gene_name}"
+        f.seek(0)
+        f.writelines(lines)
 
 def main():
     tab_filepath = sys.argv[1]
     gtf_filepath = sys.argv[2]
     forest_map = build_forest_map(gtf_filepath)
+    search_coordinate(tab_filepath, forest_map)
 
     #annotation = root.binary_search(0, len(root.annotations)-1, coordinate)
 

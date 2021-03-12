@@ -1,7 +1,7 @@
 import copy
 import nodes
 
-class SearchNodeCannotBeNoneError(Exception):
+class TreeDoesNotContainNodeError(Exception):
     pass
 
 
@@ -32,6 +32,7 @@ class AVLGeneTree(object):
     def _merge(self, root, node):
         for i in range(len(root.annotations), len(node.annotations)):
             root.annotations.append(node.annotations[i])
+        root.end = root.annotations[-1].end
         return root
 
     def insert(self, root, node):
@@ -104,13 +105,21 @@ class AVLGeneTree(object):
         connected to the provided coordinate.
         """
         if node is None:
-            raise SearchNodeCannotBeNoneError()
+            import pdb; pdb.set_trace()
+            raise TreeDoesNotContainNodeError()
         
         if coordinate < node.start:
-            return search(node.left_node, coordinate)
+            return self.search(node.left_node, coordinate)
 
         if coordinate >= node.start:
             if coordinate <= node.end:
                 return node
             else:
-                return search(node.right_node, coordinate)
+                return self.search(node.right_node, coordinate)
+
+    def in_order(self, root):
+        if not root:
+            return
+        self.in_order(root.left_node)
+        print("{0} ".format(root.start), end="")
+        self.in_order(root.right_node)
