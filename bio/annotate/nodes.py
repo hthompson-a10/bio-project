@@ -6,7 +6,6 @@ class AnnotationNode(object):
         self.start = start
         self.end = end
         self.gene_name = gene_name
-        self.annotation = annotation
 
 
 class GeneBlock(object):

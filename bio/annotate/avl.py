@@ -29,13 +29,22 @@ class AVLGeneTree(object):
         left_height, right_height = self._get_child_heights(node)
         return 1 + max(left_height, right_height)
 
+    def _merge(self, root, node):
+        for i in range(len(root.annotations), len(node.annotations)):
+            root.annotations.append(node.annotations[i])
+        return root
+
     def insert(self, root, node):
         if not root:
             return node
         elif node.start < root.start:
             root.left_node = self.insert(root.left_node, node)
-        else:
+        elif node.start > root.start:
             root.right_node = self.insert(root.right_node, node)
+        else:
+            if len(root.annotations) < len(node.annotations):
+                root = self._merge(root, node)
+            return root
 
         root.height = self._calc_height(root)
         balance_factor = self._calc_balance(root)
@@ -66,11 +75,11 @@ class AVLGeneTree(object):
         return root
 
     def rotate_left(self, node):
-        new_parent = copy.deepcopy(node.right_node)
-        left_subtree = copy.deepcopy(new_parent.left_node)
+        new_parent = node.right_node
+        left_subtree = new_parent.left_node
 
-        new_parent.left_node = copy.deepcopy(node)
-        node.right_node = copy.deepcopy(left_subtree)
+        new_parent.left_node = node
+        node.right_node = left_subtree
 
         node.height = self._calc_height(node)
         new_parent.height = self._calc_height(new_parent)
@@ -105,10 +114,3 @@ class AVLGeneTree(object):
                 return node
             else:
                 return search(node.right_node, coordinate)
-
-    def pre_order(self, root):
-        if not root:
-            return
-        print("{0} ".format(root.start), end="")
-        self.preOrder(root.left)
-        self.preOrder(root.right)

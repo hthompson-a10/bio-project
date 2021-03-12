@@ -9,7 +9,7 @@ def _create_annotation_node(line):
     start = int(parsed_line[3])
     end = int(parsed_line[4])
     gene_name = parsed_line[-2].split(';')[4].split(' ')[2]
-    anno_node = nodes.AnnotationNode(chromosome, start, end, gene_name, line)
+    anno_node = nodes.AnnotationNode(chromosome, start, end, gene_name)
     return anno_node
 
 
