@@ -1,3 +1,4 @@
+import copy
 import nodes
 
 class SearchNodeCannotBeNoneError(Exception):
@@ -62,13 +63,14 @@ class AVLGeneTree(object):
                 # for the right side being unbalanced
                 root.right_node = self.rotate_right(root.right_node)
                 return self.rotate_left(root)
+        return root
 
     def rotate_left(self, node):
-        new_parent = node.right_node
-        left_subtree = new_parent.left_node
+        new_parent = copy.deepcopy(node.right_node)
+        left_subtree = copy.deepcopy(new_parent.left_node)
 
-        new_parent.left_node = node
-        node.right_node = left_subtree
+        new_parent.left_node = copy.deepcopy(node)
+        node.right_node = copy.deepcopy(left_subtree)
 
         node.height = self._calc_height(node)
         new_parent.height = self._calc_height(new_parent)
