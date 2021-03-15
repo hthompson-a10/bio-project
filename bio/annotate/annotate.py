@@ -59,7 +59,5 @@ def main():
     forest_map = build_forest_map(gtf_filepath)
     search_coordinate(tab_filepath, forest_map)
 
-    #annotation = root.binary_search(0, len(root.annotations)-1, coordinate)
-
 if __name__ == "__main__":
     main()

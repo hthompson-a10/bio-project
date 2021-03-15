@@ -1,6 +1,8 @@
-import k_heap as heap
-import node
 import sys
+
+from bio.fasta import k_heap as heap
+from bio.fasta import nodes
+
 
 def convert_to_list(seq_dict):
     seq_list = []
@@ -19,7 +21,7 @@ def build_sequence_dict(fasta_filepath):
             if seq_dict.get(seq):
                 seq_dict[seq].cnt += 1
             else:
-                seq_dict[seq] = node.SeqNode(seq)
+                seq_dict[seq] = nodes.SeqNode(seq)
             i += 2
     return seq_dict
 

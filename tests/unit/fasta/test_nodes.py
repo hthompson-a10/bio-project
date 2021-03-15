@@ -1,12 +1,12 @@
-from bio_project.bio.fasta import nodes
+from bio.fasta import nodes
 import unittest
 
 
 class TestSeqNode(unittest.TestCase):
 
     def setUp(self):
-        self.node1 = nodes.SeqNode("test1", "test")
-        self.node2 = nodes.SeqNode("test2", "test")
+        self.node1 = nodes.SeqNode("test_sequence_1")
+        self.node2 = nodes.SeqNode("test_sequence_2")
 
     def test_eq_true(self):
         result = self.node1 == self.node2
@@ -44,11 +44,3 @@ class TestSeqNode(unittest.TestCase):
     def test_ge_equal_true(self):
         result = self.node1 >= self.node2
         self.assertTrue(result)
-
-
-class TestKHeap(unittest.TestCase):
-    pass
-
-
-class TestFastaFrequency(unittest.TestCase):
-    pass

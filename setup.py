@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='bio',
+setup(name='bio_project',
       version='0.1',
       description='Bio Project',
       url='https://github.com/hthompson-a10/bio_project',
@@ -12,6 +12,8 @@ setup(name='bio',
       entry_points={
         'console_scripts': [
             'fastq_percentage = bio.fastq.percentages:main',
+            'fasta_frequency = bio.fasta.frequency:main',
+            'annotate = bio.annotate.annotate:main'
         ],
       }   
  )

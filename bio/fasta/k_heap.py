@@ -16,8 +16,8 @@ class KHeap(object):
     """
 
     def _swap(self, node_list, idx_1, idx_2):
-        temp_node = copy.deepcopy(node_list[idx_1])
-        node_list[idx_1] = copy.deepcopy(node_list[idx_2])
+        temp_node = node_list[idx_1]
+        node_list[idx_1] = node_list[idx_2]
         node_list[idx_2] = temp_node
 
     def build_heap(self, node_list, size, child_cnt):
