@@ -1,6 +1,6 @@
 import sys
 
-from bio.fasta import k_heap as heap
+from bio.fasta import d_heap
 from bio.fasta import nodes
 
 
@@ -30,12 +30,12 @@ def build_output_message(seq_list):
     # Use a k-ary heap to do a quick partial sort in O(n) time
     # We use 9-ary as this sets the node as the max the next 9 children as the other most
     # frequent
-    k_heap = heap.KHeap()
-    k_heap.build_heap(seq_list, len(seq_list), 9)
+    heap = d_heap.DHeap()
+    heap.build_heap(seq_list, len(seq_list), 9)
 
     output_msg = ""
     for i in range(0, 10):
-        seq_node = k_heap.extract_max(seq_list, len(seq_list), 9)
+        seq_node = heap.extract_max(seq_list, len(seq_list), 9)
         output_msg += f"Sequence: {seq_node.seq}"
         output_msg += f"Sequence Frequency Count: {seq_node.cnt}\n\n"
 

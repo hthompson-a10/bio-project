@@ -1,18 +1,15 @@
 import copy
-import math
 
-class KHeap(object):
+class DHeap(object):
 
     """
-        This is a partial implementation of the K-ary Heap which is the generalized version of the
-        binary heap (k=2).
+        This is a partial implementation of the d-ary Heap which is the generalized version of the
+        binary heap (d=2).
 
         This was only partially implemented as anything more would have been out-of-scope of this assignment.
         In a normal codebase, the author would have implemented the entirety of the class.
 
-        For readability purposes: Let k be aliased to child_cnt
-
-        Credit to https://www.geeksforgeeks.org/k-ary-heap/ for the base implementation in C++
+        For readability purposes: Let d be aliased to child_cnt
     """
 
     def _swap(self, node_list, idx_1, idx_2):
@@ -21,7 +18,7 @@ class KHeap(object):
         node_list[idx_2] = temp_node
 
     def build_heap(self, node_list, size, child_cnt):
-        i = math.floor((size-2)/child_cnt)
+        i = (size-2)//child_cnt
         while i >= 0:
             self.max_heapify(node_list, size, i, child_cnt)
             i -= 1
@@ -47,7 +44,7 @@ class KHeap(object):
                     max_child_idx = child_idx
                     max_child = node_list[child_idx]
 
-            # If this is true then we are on a leafe node
+            # If this is true then we are on a leaf node
             if max_child == -1:
                 break
 
