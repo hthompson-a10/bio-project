@@ -5,7 +5,7 @@ class DHeap(object):
         binary heap (d=2).
 
         This was only partially implemented as anything more would have been out-of-scope of this assignment.
-        In a normal codebase, the author would have implemented the entirety of the class.
+        In a normal codebase, the author would have implemented the entirety of the class for generality purposes.
 
         For readability purposes: Let d be aliased to child_cnt
     """

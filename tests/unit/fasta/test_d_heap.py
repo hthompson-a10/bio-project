@@ -66,7 +66,6 @@ class TestDHeap(unittest.TestCase):
             heap.max_heapify(node_list, len(node_list), 0, 3)
         mock_swap.assert_not_called()
 
-
     def test_maxheapify_child_is_max_swap_called(self):
         child_cnt = 3
         node_list = self._node_list_generator(4)
