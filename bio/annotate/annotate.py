@@ -23,7 +23,8 @@ def build_forest_map(gtf_filepath):
 
         for i in range(1, len(lines)):
             anno_node = _create_annotation_node(lines[i])
-            if anno_node.gene_name != gene_block.gene_name: # New block has been reached
+            # Check if a new block has been reached
+            if anno_node.gene_name != gene_block.gene_name:
                 # Set the end coordinate of the gene block. Insert gene block into
                 # an AVL tree based on chromosome
                 gene_block.end = gene_block.annotations[-1].end

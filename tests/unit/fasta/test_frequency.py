@@ -25,7 +25,7 @@ class TestFrequency(unittest.TestCase):
                       '>seq2', 'test_seq')
         mock_lines = '\n'.join(mock_lines) + '\n'
         with patch("builtins.open", mock_open(read_data=mock_lines)) as mock_file:
-            result = frequency.build_sequence_dict('mock_file_path')
+            result = frequency.build_sequence_dict('mock_file_path')[0]
         self.assertEqual(result.get('test_seq').cnt, 2)
 
     def test_buildsequencedict_no_duplicate_increase_nodes(self):
@@ -33,6 +33,6 @@ class TestFrequency(unittest.TestCase):
                       '>seq2', 'test_seq2')
         mock_lines = '\n'.join(mock_lines)
         with patch("builtins.open", mock_open(read_data=mock_lines)) as mock_file:
-            result = frequency.build_sequence_dict('mock_file_path')
+            result = frequency.build_sequence_dict('mock_file_path')[0]
         self.assertIsNotNone(result.get('test_seq'))
         self.assertIsNotNone(result.get('test_seq2'))
