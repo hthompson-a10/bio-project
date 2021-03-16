@@ -1,6 +1,6 @@
 import sys
 
-from bio.fasta import d_heap
+from bio.fasta import radix
 from bio.fasta import nodes
 
 
@@ -12,6 +12,7 @@ def convert_to_list(seq_dict):
 
 
 def build_sequence_dict(fasta_filepath):
+    max_val = 0
     seq_dict = {}
     with open(fasta_filepath, 'r') as f:
         lines = f.readlines()
@@ -20,43 +21,30 @@ def build_sequence_dict(fasta_filepath):
             seq = lines[i].strip('\n')
             if seq_dict.get(seq):
                 seq_dict[seq].cnt += 1
+                if seq_dict[seq].cnt > max_val:
+                    max_val = seq_dict[seq].cnt
             else:
                 seq_dict[seq] = nodes.SeqNode(seq)
             i += 2
-    return seq_dict
+    return seq_dict, max_val
 
 
 def build_output_message(seq_list):
-    """
-    This function leverages a heap to partially sort the data. Only the top 10
-    sequences are of concern, so the rest of the data can be ignored. A
-    4-ary heap is used as it tends to perform better than a binary heap 
-    when working with large datasets due to caching behavior.
-    """
-    heap = d_heap.DHeap()
-    heap.build_heap(seq_list, len(seq_list), 4)
-
     output_msg = ""
-    for i in range(0, min(10, len(seq_list))):
-        seq_node = heap.extract_max(seq_list, len(seq_list), 4)
-        #output_msg += f"Sequence: {seq_node.seq}\n"
-        #output_msg += f"Sequence Frequency Count: {seq_node.cnt}\n\n"
+    for i in range(1, min(10, len(seq_list))):
+        seq_node = seq_list[-i]
+        output_msg += f"Sequence: {seq_node.seq}\n"
+        output_msg += f"Sequence Frequency Count: {seq_node.cnt}\n\n"
     return output_msg
 
 
 def main():
     fasta_filepath = sys.argv[1]
-    seq_dict = build_sequence_dict(fasta_filepath)
+    seq_dict, max_val = build_sequence_dict(fasta_filepath)
     seq_list = convert_to_list(seq_dict)
-
-    import timeit
-    starttime = timeit.default_timer()
-    #seq_list = seq_list.sort(key=lambda x: x.cnt)
-    build_output_message(seq_list)
-    print("The time difference is :", timeit.default_timer() - starttime)
-
-    
-    #print(output_msg)
+    radix.RadixSort().sort(seq_list, max_val)
+    output_msg = build_output_message(seq_list)
+    print(output_msg)
 
 
 if __name__ == "__main__":
