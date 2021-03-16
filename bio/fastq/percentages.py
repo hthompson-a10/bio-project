@@ -5,13 +5,13 @@ import sys
 
 def sequence_gen(lines):
     idx = 1
-    while idx < len(lines) - 4:
-        yield lines[idx]
+    while idx < len(lines):
+        yield lines[idx].strip('\n')
         idx += 4
 
 
-def collect_percents(fastq_iter):
-    percents = {}
+def build_percentage_map(fastq_iter):
+    percent_map = {}
     for fastq_file in fastq_iter:
         total_seq_cnt = 0
         seq_over_30 = 0
@@ -21,8 +21,8 @@ def collect_percents(fastq_iter):
                 if len(seq) > 30:
                     seq_over_30 += 1
                 total_seq_cnt += 1
-        percents[fastq_file] = (seq_over_30 / total_seq_cnt) * 100
-    return percents
+        percent_map[fastq_file] = (seq_over_30 / total_seq_cnt) * 100
+    return percent_map
 
 
 def build_output_message(root_dir, percents, percision):
@@ -50,8 +50,8 @@ def main():
     percision = int(sys.argv[2]) if len(sys.argv) > 2 else 0
     fastq_iter = glob.iglob(os.path.join(root_dir, '**/*.fastq'),
                             recursive=True)
-    percentages = collect_percents(fastq_iter)
-    print(build_output_message(root_dir, percentages, percision))
+    percent_map = build_percentage_map(fastq_iter)
+    print(build_output_message(root_dir, percent_map, percision))
 
 
 if __name__ == "__main__":
