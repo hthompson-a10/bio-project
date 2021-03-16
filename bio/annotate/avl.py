@@ -1,9 +1,6 @@
 import copy
 import nodes
 
-class TreeDoesNotContainNodeError(Exception):
-    pass
-
 
 class GeneTreeNode(nodes.GeneBlock):
 
@@ -105,8 +102,7 @@ class AVLGeneTree(object):
         connected to the provided coordinate.
         """
         if node is None:
-            return GeneTreeNode(coordinate, '"UNKNOWN"')
-            #raise TreeDoesNotContainNodeError()
+            return GeneTreeNode(coordinate, 'UNKNOWN')
         
         if coordinate < node.start:
             return self.search(node.left_node, coordinate)
