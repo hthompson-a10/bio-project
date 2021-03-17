@@ -1,5 +1,4 @@
-import copy
-import nodes
+from bio.annotate import nodes
 
 
 class GeneTreeNode(nodes.GeneBlock):
@@ -47,7 +46,7 @@ class AVLGeneTree(object):
         root.height = self._calc_height(root)
         balance_factor = self._calc_balance(root)
 
-        # Check if left side causing the tree to be unbalaced
+        # Check if left side is causing the tree to be unbalaced
         if balance_factor > 1:
             if node.start < root.left_node.start:
                 # If node was inserted as a left leaf then rotate right to compensate
@@ -59,7 +58,7 @@ class AVLGeneTree(object):
                 root.left_node = self.rotate_left(root.left_node)
                 return self.rotate_right(root)
 
-        # Check if right side causing the tree to be unbalaced
+        # Check if right side is causing the tree to be unbalaced
         if balance_factor < -1:
             if node.start > root.right_node.start:
                 # If node was inserted as a right leaf then rotate left to compensate
@@ -98,8 +97,8 @@ class AVLGeneTree(object):
 
     def search(self, node, coordinate):
         """
-        This searches across the AVL tree and annotation nodes to find the annotation
-        connected to the provided coordinate.
+        Searches across the AVL tree to find the annotation connected to
+        the provided coordinate.
         """
         if node is None:
             return GeneTreeNode(coordinate, 'UNKNOWN')
