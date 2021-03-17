@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 
-from bio.annotate import avl
+from bio.gtf import avl
 
 
 class TestAVLTree(unittest.TestCase):

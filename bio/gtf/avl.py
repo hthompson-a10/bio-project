@@ -1,13 +1,13 @@
-from bio.annotate import nodes
+from bio.gtf import nodes
 
 
 class GeneTreeNode(nodes.GeneBlock):
 
-    def __init__(self, start, gene_name):
+    def __init__(self, start, end, gene_name):
         self.left_node = None
         self.right_node = None
         self.height = 1
-        super().__init__(start, gene_name)
+        super().__init__(start, end, gene_name)
 
 
 class AVLGeneTree(object):
@@ -101,7 +101,7 @@ class AVLGeneTree(object):
         the provided coordinate.
         """
         if node is None:
-            return GeneTreeNode(coordinate, 'UNKNOWN')
+            return GeneTreeNode(coordinate, coordinate, 'UNKNOWN')
         
         if coordinate < node.start:
             return self.search(node.left_node, coordinate)

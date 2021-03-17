@@ -1,12 +1,13 @@
-from bio.annotate import nodes
 import unittest
+
+from bio.gtf import nodes
 
 
 class TestGeneNode(unittest.TestCase):
 
     def setUp(self):
-        self.node1 = nodes.GeneBlock(1, "test_gene_1")
-        self.node2 = nodes.GeneBlock(1, "test_gene_2")
+        self.node1 = nodes.GeneBlock(1, 2, "test_gene_1")
+        self.node2 = nodes.GeneBlock(1, 2, "test_gene_2")
 
     def test_eq_true(self):
         result = self.node1 == self.node2

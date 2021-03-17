@@ -10,9 +10,9 @@ class AnnotationNode(object):
 
 class GeneBlock(object):
     
-    def __init__(self, start, gene_name):
+    def __init__(self, start, end, gene_name):
         self.start = start
-        self.end = None
+        self.end = end
         self.gene_name = gene_name
         self.annotations = []
 
