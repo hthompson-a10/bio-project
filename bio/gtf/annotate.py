@@ -9,7 +9,7 @@ def _create_annotation_node(line):
     chromosome = parsed_line[0]
     start = int(parsed_line[3])
     end = int(parsed_line[4])
-    gene_name = parsed_line[-2].split(';')[4].split(' ')[2]
+    gene_name = parsed_line[-2].split(';')[4].split(' ')[2].replace('\"', "")
     anno_node = nodes.AnnotationNode(chromosome, start, end, gene_name)
     return anno_node
 
@@ -21,6 +21,7 @@ def _insert_into_map(tree_map, chromosome, gene_block):
         root = tree_map[chromosome]
         tree_map[chromosome] = avl.AVLGeneTree().insert(root, gene_block)
     return tree_map
+
 
 def build_tree_map(gtf_filepath):
     tree_map = {}
@@ -45,7 +46,7 @@ def build_tree_map(gtf_filepath):
             # Setup a new gene block
             gene_block = avl.GeneTreeNode(anno_node.start, anno_node.end, anno_node.gene_name)
         gene_block.annotations.append(anno_node)
-    
+
     # Last line has been reached. Insert block into tree
     gene_block.end = gene_block.annotations[-1].end
     chromosome = gene_block.annotations[-1].chromosome
@@ -54,8 +55,7 @@ def build_tree_map(gtf_filepath):
     return tree_map
 
 
-
-def search_coordinate(tab_filepath, tree_map):
+def annotate_file(tab_filepath, tree_map):
     with open(tab_filepath, 'r+') as f:
         lines = f.readlines()
         for i in range(0, len(lines)):
@@ -70,11 +70,17 @@ def search_coordinate(tab_filepath, tree_map):
         f.seek(0)
         f.writelines(lines)
 
+
 def main():
+    if len(sys.argv) != 3:
+        print("Usage: gtf_annotate <file_to_annotate> "
+              "<gtf_file_with_annotations>")
+
     tab_filepath = sys.argv[1]
     gtf_filepath = sys.argv[2]
     tree_map = build_tree_map(gtf_filepath)
-    search_coordinate(tab_filepath, tree_map)
+    annotate_file(tab_filepath, tree_map)
+
 
 if __name__ == "__main__":
     main()

@@ -14,20 +14,20 @@ class TestAVLTree(unittest.TestCase):
         self.assertEqual(lh, 2)
         self.assertEqual(rh, 3)
 
-    @mock.patch.object(avl.AVLGeneTree, '_get_child_heights', return_value=(1,2))
+    @mock.patch.object(avl.AVLGeneTree, '_get_child_heights', return_value=(1, 2))
     def test_calc_balance(self, mock_height):
         mock_height.return_value = (1, 2)
         result = avl.AVLGeneTree()._calc_balance(mock.Mock())
         self.assertEqual(result, -1)
 
-    @mock.patch.object(avl.AVLGeneTree, '_get_child_heights', return_value=(1,2))
+    @mock.patch.object(avl.AVLGeneTree, '_get_child_heights', return_value=(1, 2))
     def test_calc_height(self, mock_height):
         mock_height.return_value = (1, 2)
         result = avl.AVLGeneTree()._calc_height(mock.Mock())
         self.assertEqual(result, 3)
 
     def test_merge(self):
-        gen_anno = lambda x : [mock.Mock() for i in range(0, x)]
+        gen_anno = lambda x: [mock.Mock() for i in range(0, x)]
         mock_root = mock.Mock(annotations=gen_anno(2))
         mock_node = mock.Mock(annotations=gen_anno(5))
         mock_root = avl.AVLGeneTree()._merge(mock_root, mock_node)
@@ -75,7 +75,7 @@ class TestAVLTree(unittest.TestCase):
         mock_rotate_right.return_value = mock_root.left_node
         mock_node = mock.Mock(start=0)
 
-        avl.AVLGeneTree._calc_balance = lambda y,x : 2 if x == mock_root else 0
+        avl.AVLGeneTree._calc_balance = lambda y, x: 2 if x == mock_root else 0
         avl.AVLGeneTree().insert(mock_root, mock_node)
 
         mock_rotate_right.assert_called_with(mock_root)
@@ -90,7 +90,7 @@ class TestAVLTree(unittest.TestCase):
         mock_rotate_left.return_value = mock_root.right_node
         mock_node = mock.Mock(start=15)
 
-        avl.AVLGeneTree._calc_balance = lambda y,x : -2 if x == mock_root else 0
+        avl.AVLGeneTree._calc_balance = lambda y, x: -2 if x == mock_root else 0
         avl.AVLGeneTree().insert(mock_root, mock_node)
 
         mock_rotate_left.assert_called_with(mock_root)
@@ -105,7 +105,7 @@ class TestAVLTree(unittest.TestCase):
         mock_rotate_right.return_value = mock_root.left_node
         mock_node = mock.Mock(start=7)
 
-        avl.AVLGeneTree._calc_balance = lambda y,x : 2 if x == mock_root else 0
+        avl.AVLGeneTree._calc_balance = lambda y, x: 2 if x == mock_root else 0
         avl.AVLGeneTree().insert(mock_root, mock_node)
 
         mock_rotate_left.assert_called()
@@ -120,7 +120,7 @@ class TestAVLTree(unittest.TestCase):
         mock_rotate_left.return_value = mock_root.right_node
         mock_node = mock.Mock(start=7)
 
-        avl.AVLGeneTree._calc_balance = lambda y,x : -2 if x == mock_root else 0
+        avl.AVLGeneTree._calc_balance = lambda y, x: -2 if x == mock_root else 0
         avl.AVLGeneTree().insert(mock_root, mock_node)
 
         mock_rotate_right.assert_called()

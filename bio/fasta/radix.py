@@ -8,14 +8,14 @@ class RadixSort(object):
         for i in range(0, size):
             idx = (input_list[i].cnt // place) % radix
             counts[idx] += 1
-        
+
         for i in range(1, radix):
-            counts[i] += counts[i-1]
+            counts[i] += counts[i - 1]
 
         i = size - 1
         while i >= 0:
             idx = (input_list[i].cnt // place) % radix
-            output_list[counts[idx]-1] = input_list[i]
+            output_list[counts[idx] - 1] = input_list[i]
             counts[idx] -= 1
             i -= 1
 

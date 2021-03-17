@@ -29,22 +29,30 @@ def build_sequence_dict(fasta_filepath):
     return seq_dict, max_val
 
 
-def build_output_message(seq_list):
-    output_msg = ""
+def write_to_file(seq_list, output_filepath):
+    output = []
     for i in range(1, min(10, len(seq_list))):
         seq_node = seq_list[-i]
-        output_msg += f"Sequence: {seq_node.seq}\n"
+        output_msg = f"Sequence: {seq_node.seq}\n"
         output_msg += f"Sequence Frequency Count: {seq_node.cnt}\n\n"
-    return output_msg
+        output.append(output_msg)
+
+    fileout = open(output_filepath, 'w')
+    fileout.seek(0)
+    fileout.writelines(output)
 
 
 def main():
+    if len(sys.argv) != 3:
+        print("Usage: fasta_percentage <fasta_file> <output_file>")
     fasta_filepath = sys.argv[1]
+    output_filepath = sys.argv[2]
+
     seq_dict, max_val = build_sequence_dict(fasta_filepath)
     seq_list = convert_to_list(seq_dict)
     radix.RadixSort().sort(seq_list, max_val)
-    output_msg = build_output_message(seq_list)
-    print(output_msg)
+
+    write_to_file(seq_list, output_filepath)
 
 
 if __name__ == "__main__":

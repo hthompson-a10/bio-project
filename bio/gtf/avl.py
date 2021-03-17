@@ -17,7 +17,7 @@ class AVLGeneTree(object):
         right_height = node.right_node.height if node.right_node else 0
         return left_height, right_height
 
-    def _calc_balance(self, node): 
+    def _calc_balance(self, node):
         left_height, right_height = self._get_child_heights(node)
         return left_height - right_height
 
@@ -102,7 +102,7 @@ class AVLGeneTree(object):
         """
         if node is None:
             return GeneTreeNode(coordinate, coordinate, 'UNKNOWN')
-        
+
         if coordinate < node.start:
             return self.search(node.left_node, coordinate)
 

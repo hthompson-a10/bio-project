@@ -25,9 +25,9 @@ def build_percentage_map(fastq_iter):
     return percent_map
 
 
-def build_output_message(root_dir, percents, percision):
+def write_to_file(root_dir, output_filepath, percent_map, percision):
     subdir_msg_dict = {}
-    for k, v in percents.items():
+    for k, v in percent_map.items():
         filename = k.split('/')[-1]
         subdir = k.replace(root_dir, '').replace(filename, '')
         msg = f"{filename}: {v:.{percision}f}% of sequences are greater than 30 nucleotides long"
@@ -35,23 +35,30 @@ def build_output_message(root_dir, percents, percision):
             subdir_msg_dict[subdir] = []
         subdir_msg_dict[subdir].append(msg)
 
-    output_msg = ""
+    output = []
     for k in subdir_msg_dict.keys():
         dirpath = os.path.join(root_dir, k)
-        output_msg += f"{dirpath}:\n"
+        output_msg = f"{dirpath}:\n"
         for msg in subdir_msg_dict[k]:
             output_msg += f"\t{msg}\n"
+        output.append(output_msg)
 
-    return output_msg
+    fileout = open(output_filepath, 'w')
+    fileout.seek(0)
+    fileout.writelines(output)
 
 
 def main():
+    if len(sys.argv) < 3 or len(sys.argv) > 4:
+        print("Usage: fastq_percentage <directory_containing_fastq_files> "
+              "<output_file> [percision]")
     root_dir = sys.argv[1]
-    percision = int(sys.argv[2]) if len(sys.argv) > 2 else 0
+    output_filepath = sys.argv[2]
+    percision = int(sys.argv[3]) if len(sys.argv) > 3 else 0
     fastq_iter = glob.iglob(os.path.join(root_dir, '**/*.fastq'),
                             recursive=True)
     percent_map = build_percentage_map(fastq_iter)
-    print(build_output_message(root_dir, percent_map, percision))
+    write_to_file(root_dir, output_filepath, percent_map, percision)
 
 
 if __name__ == "__main__":

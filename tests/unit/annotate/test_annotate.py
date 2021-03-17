@@ -1,4 +1,3 @@
-import copy
 import os
 import unittest
 from unittest import mock
@@ -6,6 +5,7 @@ from unittest.mock import mock_open
 
 from bio.gtf import avl
 from bio.gtf import annotate
+
 
 class TestAnnotate(unittest.TestCase):
 
@@ -15,7 +15,7 @@ class TestAnnotate(unittest.TestCase):
     @mock.patch('bio.gtf.avl.GeneTreeNode')
     @mock.patch('bio.gtf.annotate._create_annotation_node')
     def test_buildtreemap_empty_file(self, mock_annotation, mock_root):
-        with mock.patch("builtins.open", mock_open(read_data="")) as mock_file:
+        with mock.patch("builtins.open", mock_open(read_data="")):
             result = annotate.build_tree_map(['mock_file_path'])
         self.assertEqual(result, {})
 
@@ -26,7 +26,7 @@ class TestAnnotate(unittest.TestCase):
         mock_annotation.return_value = mock.Mock(gene_name='mock_gene')
         mock_root.return_value = mock.Mock(gene_name='mock_gene', annotations=[])
         mock_lines = self._format_filedata(['line1'])
-        with mock.patch("builtins.open", mock_open(read_data=mock_lines)) as mock_file:
+        with mock.patch("builtins.open", mock_open(read_data=mock_lines)):
             result = annotate.build_tree_map(['mock_file_path'])
         self.assertEqual(len(result.keys()), 1)
 
@@ -38,10 +38,9 @@ class TestAnnotate(unittest.TestCase):
         anno_2 = mock.Mock(gene_name='mock_gene', chromosome='chr1')
         mock_annotation.side_effect = [anno_1, anno_2]
         mock_lines = self._format_filedata(['line1', 'line2'])
-        with mock.patch("builtins.open", mock_open(read_data=mock_lines)) as mock_file:
+        with mock.patch("builtins.open", mock_open(read_data=mock_lines)):
             result = annotate.build_tree_map(['mock_file_path'])
         self.assertEqual(len(result.keys()), 1)
-
 
     @mock.patch.object(avl.AVLGeneTree, 'insert')
     @mock.patch('bio.gtf.annotate._create_annotation_node')
@@ -50,7 +49,7 @@ class TestAnnotate(unittest.TestCase):
         anno_2 = mock.Mock(gene_name='mock_gene2', chromosome='chr2')
         mock_annotation.side_effect = [anno_1, anno_2]
         mock_lines = self._format_filedata(['line1', 'line2'])
-        with mock.patch("builtins.open", mock_open(read_data=mock_lines)) as mock_file:
+        with mock.patch("builtins.open", mock_open(read_data=mock_lines)):
             result = annotate.build_tree_map(['mock_file_path'])
         self.assertEqual(len(result.keys()), 2)
 

@@ -12,12 +12,12 @@ class TestGeneNode(unittest.TestCase):
     def test_eq_true(self):
         result = self.node1 == self.node2
         self.assertTrue(result)
-    
+
     def test_ne_true(self):
         self.node1.start = 2
         result = self.node1 != self.node2
         self.assertTrue(result)
-    
+
     def test_lt_true(self):
         self.node1.start = 0
         result = self.node1 < self.node2
@@ -32,7 +32,7 @@ class TestGeneNode(unittest.TestCase):
         self.node1.start = 0
         result = self.node1 <= self.node2
         self.assertTrue(result)
-    
+
     def test_le_equal_true(self):
         result = self.node1 <= self.node2
         self.assertTrue(result)

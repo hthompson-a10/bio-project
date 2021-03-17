@@ -1,5 +1,5 @@
 class AnnotationNode(object):
-    
+
     def __init__(self, chromosome, start, end,
                  gene_name, annotation=None):
         self.chromosome = chromosome
@@ -9,7 +9,7 @@ class AnnotationNode(object):
 
 
 class GeneBlock(object):
-    
+
     def __init__(self, start, end, gene_name):
         self.start = start
         self.end = end

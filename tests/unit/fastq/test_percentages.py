@@ -7,6 +7,7 @@ SEQ_AT_30 = "B" * 30
 SEQ_OVER_30 = "A" * 31
 NEW_LINE_SPACER = '\n' * 4
 
+
 class TestFastqPercentage(unittest.TestCase):
 
     def _format_filedata(self, lines):
@@ -17,7 +18,7 @@ class TestFastqPercentage(unittest.TestCase):
         mock_lines = [SEQ_AT_30 for i in range(0, 10)]
         mock_lines = self._format_filedata(mock_lines)
 
-        with patch("builtins.open", mock_open(read_data=mock_lines)) as mock_file:
+        with patch("builtins.open", mock_open(read_data=mock_lines)):
             result = percentages.build_percentage_map(['mock_file_path'])
         self.assertEqual(result.get('mock_file_path'), 0)
 
@@ -26,7 +27,7 @@ class TestFastqPercentage(unittest.TestCase):
         mock_lines.extend([SEQ_OVER_30 for i in range(0, 10)])
         mock_lines = self._format_filedata(mock_lines)
 
-        with patch("builtins.open", mock_open(read_data=mock_lines)) as mock_file:
+        with patch("builtins.open", mock_open(read_data=mock_lines)):
             result = percentages.build_percentage_map(['mock_file_path'])
         self.assertEqual(result.get('mock_file_path'), 50)
 
@@ -34,6 +35,6 @@ class TestFastqPercentage(unittest.TestCase):
         mock_lines = [SEQ_OVER_30 for i in range(0, 10)]
         mock_lines = self._format_filedata(mock_lines)
 
-        with patch("builtins.open", mock_open(read_data=mock_lines)) as mock_file:
+        with patch("builtins.open", mock_open(read_data=mock_lines)):
             result = percentages.build_percentage_map(['mock_file_path'])
         self.assertEqual(result.get('mock_file_path'), 100)
