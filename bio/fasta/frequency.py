@@ -31,10 +31,10 @@ def build_sequence_dict(fasta_filepath):
 
 def write_to_file(seq_list, output_filepath):
     output = []
-    for i in range(1, min(10, len(seq_list))):
+    for i in range(1, min(11, len(seq_list))):
         seq_node = seq_list[-i]
         output_msg = f"Sequence: {seq_node.seq}\n"
-        output_msg += f"Sequence Frequency Count: {seq_node.cnt}\n\n"
+        output_msg += f"Sequence Count: {seq_node.cnt}\n\n"
         output.append(output_msg)
 
     fileout = open(output_filepath, 'w')

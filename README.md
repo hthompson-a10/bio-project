@@ -13,7 +13,7 @@ pip3 install -e .
 
 ### Usage
 ```
-fastq_percentage <directory_containing_fastq_files> <output_file> [percision]
+fastq_percentage <directory_containing_fastq_files> <output_file> [precision]
 ```
 
 ### Sample of output file contents
@@ -28,11 +28,23 @@ bio-project/tests/fixtures/fastq/read2/:
         Sample_R2.fastq: 84% of sequences are greater than 30 nucleotides long
 ```
 
+With increased precision (10 decimal points)
+
+```
+$ fastq_percentage bio-project/tests/fixtures/fastq/ out.txt 10
+
+$ cat out.txt
+bio-project/tests/fixtures/fastq/read1/:
+        Sample_R1.fastq: 80.6424344886% of sequences are greater than 30 nucleotides long
+bio-project/tests/fixtures/fastq/read2/:
+        Sample_R2.fastq: 83.6010143702% of sequences are greater than 30 nucleotides long
+```
+
 ## FASTA Top 10 Sequences
 
 ### Usage
 ```
-fasta_percentage <fasta_file> <output_file>
+fasta_frequency <fasta_file> <output_file>
 ```
 
 ### Sample of output file contents
@@ -42,13 +54,13 @@ $ fasta_frequency bio-project/tests/fixtures/fasta/sample.fasta out.txt
 
 $ cat out.txt
 Sequence: CGCGCAGGCTGAAGTAGTTACGCCCCTGTAAAGGAATCTATGGACAATGGAACGAACA
-Sequence Frequency Count: 28
+Sequence Count: 28
 
 Sequence: TGTTCTGAGTCAAATGATATTAACTATGCTTATCACATATTATAAAAGACCGTGGACATTCATCTTTAGTGTGTCTCCCTCTTCCTACT
-Sequence Frequency Count: 27
+Sequence Count: 27
 
 Sequence: CTCAATCTGCCAAGACCATAGATCCTCTCTTACTGTCAGCTCATCCGGTGAGGCC
-Sequence Frequency Count: 22
+Sequence Count: 22
 ```
 
 ## GTF Annotation
