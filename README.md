@@ -6,7 +6,7 @@ Download from github
 ```
 git clone git@github.com:hthompson-a10/bio-project.git
 cd bio-project
-pip3 install -e .
+pip3 install .
 ```
 
 ## FASTQ Percentage
